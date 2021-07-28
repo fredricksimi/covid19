@@ -161,26 +161,32 @@ def seven_days(request):
 def history_view(request):
     our_list = []
     converted_list = []
-    our_file = '../ourdata.json'
+    our_file = '/home/freddy/covid19/final.json'
     with open(our_file) as obj:
-        for line in obj:
-            newline = json.loads(line)
-            our_list.append(json.loads(line))
-        for ol in our_list:
-            if ol["new_cases"] != None:
-                newentry = {
-                    "new_cases": ol["new_cases"][1:],
-                    "active_cases": ol["active_cases"],
-                    "critical_cases": ol["critical_cases"],
-                    "recovered": ol["recovered"],
-                    "total_cases": ol["total_cases"],
-                    "new_deaths": ol["new_deaths"],
-                    "total_deaths": ol["total_deaths"],
-                    "day": ol["day"]
-                }
+        data = json.load(obj)
+        for entry in data:
+            # print(entry['new_cases'])
+            new_dict = {
+                "new_cases":entry['new_cases'],
+                "total_deaths": entry['total_deaths'],
+                "recovered": entry['recovered'],
+                "day":entry['day'],
+            }
+            converted_list.append(new_dict)
 
-                converted_list.append(newentry)
+        # for line in obj:
+            # newline = json.loads(line)
+            # our_list.append(newline)
+        # for ol in our_list:
+            # if ol["new_cases"] != None:
+            # print(ol)
+            # newentry = {
+            #     "new_cases": ol["new_cases"],
+            #     "day": ol["day"]
+            # }
+
+            # converted_list.append(json.loads(newentry))
     # for k,v in our_list[0].items():
     #     print(k,v)
-    print(converted_list[1]["new_cases"])
-    return JsonResponse(our_list, safe=False)
+    # print(converted_list[0])
+    return JsonResponse(converted_list, safe=False)

@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -59,57 +58,114 @@
 </div>
 
 <div class="container">
-  <canvas id="myChart" width="80%" height="30%"></canvas>
+  <!-- <canvas id="myChart" width="80%" height="30%"></canvas> -->
+  <canvas id="line-chart" width="800" height="450"></canvas>
 </div>
 
-<script>
+<!-- <script>
   var myurl;
   $.getJSON("/history", function(data) {
   myurl = data;
   const new_cases = []
+  const dates = []
   for (var i=0; i < myurl.length; i++){
     new_cases.push(myurl[i]["new_cases"])
+    dates.push(myurl[i]["day"])
   }
   console.log(new_cases)
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Active', 'Deaths', 'Recovered'],
+      labels: [...dates],
       datasets: [{
         label: '# of Cases',
-
-        data: [12, 19, 3], // we will fetch the json data
+        data: [...new_cases], // we will fetch the json data
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 206, 86, 0.2)'
-
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
-
         ],
         borderWidth: 1
       }]
     },
     options: {
-      indexAxis: 'y',
+      //indexAxis: 'y',
       scales: {
         y: {
           beginAtZero: true
         }
-
       }
     }
   });
   });
+</script> -->
+
+
+<script>
+  var myurl;
+  $.getJSON("/history", function(data) {
+  myurl = data;
+  const new_cases = []
+  const dates = []
+  for (var i=0; i < myurl.length; i++){
+    new_cases.push(myurl[i]["new_cases"])
+    dates.push(myurl[i]["day"])
+  }
+  console.log(new_cases)
+  new Chart(document.getElementById("line-chart"), {
+    type: 'line',
+    axisY:{
+       interval: 90
+     },
+    data: {
+      labels: [...dates],
+      datasets: [{ 
+          data: [...new_cases],
+          label: "New Cases",
+          borderColor: "#FF5733 ",
+          fill: false
+        }, 
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'World population per region (in millions)'
+      },
+      scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Month'
+        },
+        ticks: {
+          // forces step size to be 50 units
+          stepSize: 100
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: '# of Cases'
+        },
+        // min: 0,
+        // max: 100,
+        // ticks: {
+        //   // forces step size to be 50 units
+        //   stepSize: 100
+        // }
+      }
+    }
+    }
+  }); 
+});
 </script>
-
-
-
 
 
 
