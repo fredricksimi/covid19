@@ -167,7 +167,7 @@ def history_view(request):
         for entry in data:
             # print(entry['new_cases'])
             new_dict = {
-                "new_cases":entry['new_cases'],
+                "total_cases":entry['total_cases'],
                 "total_deaths": entry['total_deaths'],
                 "recovered": entry['recovered'],
                 "day":entry['day'],

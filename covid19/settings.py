@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'users',
     'commentsapp',
     'allauth.socialaccount',
+    'emailapp'
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -141,6 +142,12 @@ USE_L10N = True
 USE_TZ = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'fkemosi@gmail.com'
+EMAIL_HOST_PASSWORD = '@Voldermot1997'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL=False
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
 # Static files (CSS, JavaScript, Images)
