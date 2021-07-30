@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment
+from .models import Comment, DoctorEmails
 
 
 class CommentForm(forms.ModelForm):
@@ -7,3 +7,9 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['comment', 'user' ]
         exclude = ('user',)
+
+class DoctorEmailForm(forms.ModelForm):
+    class Meta:
+        model = DoctorEmails
+        fields = ['sender','note']
+        exclude = ('sender',) 

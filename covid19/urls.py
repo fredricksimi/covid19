@@ -23,7 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('history', mainappviews.history_view, name='history'),
-    path('subscribe', include('emailapp.urls')),
     path('', include('mainapp.urls'))
 ]
 if settings.DEBUG:

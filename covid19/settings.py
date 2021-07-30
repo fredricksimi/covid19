@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'users',
     'commentsapp',
     'allauth.socialaccount',
-    'emailapp'
 ]
 
 AUTHENTICATION_BACKENDS = [
