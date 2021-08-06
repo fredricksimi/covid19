@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from commentsapp.forms import CommentForm, DoctorEmailForm
 from django.http import JsonResponse
@@ -20,7 +20,7 @@ from datetime import date, timedelta
 
 # @login_required
 def home_view(request):
-    user_comments = Comment.objects.all()
+    user_comments = Comment.objects.all().order_by('-timestamp')
     url = "https://covid-193.p.rapidapi.com/statistics?country=kenya"
     headers = {
     'x-rapidapi-key': "6672acff71msha2668ee10af537bp1245a2jsn31635e6b6758",
@@ -61,7 +61,6 @@ def home_view(request):
     ourjsonfile.write(ourjson)
     ourjsonfile.close()
 
-
     form = CommentForm(request.POST or None)
     if request.method == 'POST':
         
@@ -80,9 +79,6 @@ def home_view(request):
             return redirect('mainapp:homepage')
     else:
         doctorform = DoctorEmailForm()
-
-    
-
     
     context = {
         "country":country,
@@ -99,11 +95,24 @@ def home_view(request):
         "form":form,
         "doctorform":doctorform,
         "aDict":aDict,
-        "usercomments":user_comments
+        "usercomments":user_comments,
     }
     return render(request, 'mainapp/index.html', context)
 
+def view_emails(request):
+    emails = DoctorEmails.objects.all()
+    context = {'emails':emails}
+    return render(request, 'mainapp/emails.html', context)
 
+def delete_email(request, id):
+    the_email = get_object_or_404(DoctorEmails, id=id)
+    if request.method == 'POST':
+        the_email.delete()
+        return redirect('mainapp:emails')
+    context = {
+        'the_email':the_email
+    }
+    return render(request, 'mainapp/delete-email.html', context)
 
 def seven_days(request):
     return render(request, 'mainapp/seven.html')

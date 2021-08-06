@@ -1,4 +1,6 @@
+{% load static %}
 {% load humanize %}
+{% load has_group %}
 {% load crispy_forms_tags %}
 <!doctype html>
 <html lang="en">
@@ -10,150 +12,344 @@
     <meta name="generator" content="Hugo 0.84.0">
     <title>Covid project</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbar-static/">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-
-<meta name="theme-color" content="#7952b3">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+<style>
+  .counter_box_outer{
+    position: relative; margin-top: -45px; padding:40px;
+    background:#fff;border-radius:25px;
+    box-shadow:0px 10px 25px 0px rgb(178 186 204 / 70%);
+  }
+  .counter_box.type_two{
+    position:relative;
+    float:left;
+    padding: 0px 10px;
+    width: 33.33%
+  }
+  .counter_box.type_two .one{
+    padding-left: 0px;
+  }
+  .headingh1{
+    font-family: 'Nunito', sans-serif;
+    font-size: 36px;
+    color: #274782;
+    line-height: 42px;
+    font-weight: 800;
+    
+  }
+  .headingh4{
+    font-family: 'Nunito', sans-serif;
+    font-size: 23px;
+    color: #274782;
+    line-height: 42px;
+    font-weight: 800;
+    
+  }
+  .headingh5 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 400;
+  }
+  .headingp {
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    line-height: 30px;
+    font-weight: 400;
+  }
+  .headingh6{
+    font-family: 'Nunito', sans-serif;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-bottom:0;
+    letter-spacing:2px;
+    color: #dd2d4e;
+    line-height: 28px;
+    font-weight: 700;
+  }
+  .mrwhite {
+    color:#fff;!important
+  }
+  .nunitofont {
+    font-family: 'Nunito' sans-serif;
+  }
+  .counter_box.type_two .image_box {
+    float: left;
+  }
+  .counter_box.type_two .text_box {
+    position: relative;
+    margin-left: 80px;
+  }
+  .odometer.odometer-auto-theme, .odometer.odometer-theme-default {
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.1em;
+    display:inline-block;
+    vertical-align:middle;
+    position:relative;
+  }
+  .odometer.odometer-auto-theme .odometer-digit, .odometer.odometer-theme-default .odometer-digit {
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+  }
+  .counter_box.type_two .three{
+    padding-left: 0px;
+  }
+</style>
   </head>
   <body>
     
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Covid Tracker</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">About</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Covid Project</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Contact</a>
+            <a class="nav-link" href="#">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Info</a>
+            <a class="nav-link" href="#">Contact</a>
           </li>
+          {% if request.user|has_group:"doctor_group" %}
+          <li class="nav-item">
+            <a href="{% url 'mainapp:emails' %}" class="nav-link btn btn-warning mr-3">Check email</a>
+          </li>
+          {% else %}
+          {% endif %}
+          
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link btn btn-primary px-3" href="{% url 'account_logout' %}" style="color:white;">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link btn btn-success px-3" href="{% url 'account_login' %}" style="color:white">Login</a>
+          </li>
+          {% endif %}
+          
         </ul>
-        <a class="btn btn-success" href="{% url 'account_logout' %}">Logout</a>
-      
-    </div>
+      </div>
+    </nav>
+<br><br>
+
+<div class="container">
+  {% if request.user|has_group:"doctor_group" %}
+    <h4 class="text-muted nunitofont">Welcome {{request.user}}</h4>
+  {% else %}
+  {% endif %}
+  <br><br><br>
+  
+  <div class="counter_box_outer">
+      <div class="row">
+         <!---------row----------->
+         <div class="col-lg-4 col-md-12">
+            <!---------col----------->
+            <div class="heading tp_one">
+               <h6 class="headingh6">Countrywide Tracker</h6>
+               <h1 class="headingh1"><b>Pandemic <br>Statistics</b></h1>
+               <p class="text-muted" style="font-family: 'Nunito' sans-serif;"><i>Last updated: {{time}}</i></p>
+            </div>
+            <!---------col-end---------->
+         </div>
+         <div class="col-lg-8 col-md-12 d-flex">
+            <!---------col----------->
+            <div style="position: relative; margin: auto 0 auto 50px; width:100%;">
+               <div class="counter_box type_two one">
+                  <div class="image_box">
+                     <img src="{% static 'img/fun-1.svg' %}" class="img-fluid" alt="svg_iage">
+                  </div>
+                  <div class="text_box">
+                     <h2>
+                       <span class="odometer odometer-auto-theme">
+                       <div class="odometer-inside">
+                         <span class="odometer-digit" style="color:#ffa800;font-size:23px;!important"><b>{{new_cases}}</b></span>
+                        </div>
+                      </span>
+                    </h2>
+                     <h6 class="small text-muted">Coronavirus Cases</h6>
+                  </div>
+               </div>
+               <div class="counter_box type_two two">
+                  <div class="image_box">
+                     <img src="{% static 'img/fun-2.svg' %}" class="img-fluid" alt="svg_iage">
+                  </div>
+                  <div class="text_box">
+                    <h2>
+                      <span class="odometer odometer-auto-theme">
+                          <div class="odometer-inside">
+                            <span class="odometer-digit" style="color:#252c36;font-size:23px;!important"><b>{{new_deaths}}</b></span>
+                          </div>
+                        </span>
+                      </h2>
+                    <h6 class="small text-muted">Deaths</h6>
+                  </div>
+               </div>
+               <div class="counter_box type_two three">
+                  <div class="image_box">
+                     <img src="{% static 'img/fun-3.svg' %}" class="img-fluid" alt="svg_iage">
+                  </div>
+                  <div class="text_box">
+                    <h2>
+                      <span class="odometer odometer-auto-theme">
+                          <div class="odometer-inside">
+                            <span class="odometer-digit" style="color:#7da60c;font-size:23px;!important"><b>{{recovered}}</b></span>
+                          </div>
+                        </span>
+                      </h2>
+                     <h6 class="small text-muted">Recovered</h6>
+                  </div>
+               </div>
+            </div>
+            <!---------col-end---------->
+         </div>
+         <!----------row-end---------->
+      </div>
   </div>
-</nav>
-<br><br>
-
-<div class="container">
-  <h5 class="text-center text-muted">Data fetched from: <i><a href="https://rapidapi.com">https://rapidapi.com</a></i></h5>
-  <p class="text-center">This data was last updated at <i><span class="text-success">{{time}}</span></i></p><br>
-  <br><br>
-  <h3 class="text-left text-muted">Day: &nbsp;&nbsp;<span class="text-success">{{day}}</span></h3>
-  <h3 class="text-left text-muted">Country: &nbsp;&nbsp;<i class="fas fa-map-marker-alt text-primary"></i> <span class="text-primary">{{country}}</span></h3>
-  <h3 class="text-left text-muted">Current Population: &nbsp;&nbsp;<span class="text-info">{{population|intword}}</span></h3>
-  <h3 class="text-left text-muted">Covid Tests: &nbsp;&nbsp;<span class="text-success">{{tests}}</span></h3>
-  <!-- <h3 class="text-left text-muted">{{country}}</h3>
-  <h3 class="text-left text-muted">{{country}}</h3> -->
-  <br><br>
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title text-primary text-center">{{new_cases}}</h2><br>
-          <p class="card-text text-muted text-center">New cases</p>
-        </div>
+  <!-- <div class="row">
+    <div class="col-lg-4 col-md-12">
+      <div>
+        <h4>COUNTRYWIDE TRACKER</h4>
+        <h5>Pandemic Statistics</h5>
+        <p class="text-muted">Last Updated at {{time}}</p>
       </div>
     </div>
-    <div class="col-sm-3">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title text-warning text-center">{{active_cases}}</h2><br>
-          <p class="card-text text-muted text-center">Infected</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title text-danger text-center">{{new_deaths}}</h2><br>
-          <p class="card-text text-muted text-center">Deaths</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title text-success text-center">{{recovered}}</h2><br>
-          <p class="card-text text-muted text-center">Recovered</p>
-        </div>
-      </div>
-    </div>
-  </div>  
+    <div class="col-lg-8 col-md-12">and I need you</div>
+  </div> -->
 </div>
-<br><br>
 
+<br><br>
 <div class="container">
-  <!-- <canvas id="myChart" width="80%" height="30%"></canvas> -->
   <canvas id="line-chart" width="800" height="450"></canvas>
 </div>
+<br><br>
 
-<br><br><br>
-
-<div class="container">
-  <div style="background-color: yellow; height:50px; width:40%">
-    <h1 style="text-align: center; color:black;" id="guide">Guidelines</h1>
-  </div><br>
+<div style="background-color: #eff2f9;">
+  <br><br><br>
+  <div class="container">
+    <p class="headingh1 text-center" style="color:black;!important"><b>How is COVID-19 transmitted?</b></p><br>
   
-  <div style="margin-left:10%; margin-right: 10%;">
-    <h4 style="font-weight: bold;">How it is spread:</h4>
-    <p style="font-size: larger;">The virus can spread from an infected 
-        person’s mouth or nose in small liquid 
-        particles when they cough, sneeze, speak, 
-        sing or breathe. These particles range from larger
-         respiratory droplets to smaller aerosols.</p>
+    <div class="row">
+      <div class="col-sm-4">
+        <div>
+          <center><img src="{% static 'img/spreading-1-1.png' %}" class="img-responsive"></center>
+        </div>
+        <div>
+          <h4 class="headingh4 text-center"><b>Air by cough or sneeze</b></h4>
+          <p class="text-muted text-center">
+            Travel restrictions or screening air travellers for high temperature (fever) may help to prevent the SARS infection being spread.
+          </p>
+        </div>
+      </div>
   
-         <p style="font-size: larger;">
-         Current evidence suggests that the virus spreads 
-         mainly between people who are in close contact with
-          each other, typically within 1 metre (short-range). 
-          A person can be infected when aerosols or droplets 
-          containing the virus are inhaled or come directly
-           into contact with the eyes, nose, or mouth. 
-         </p>
-         
+      <div class="col-sm-4">
+        <div>
+          <center><img src="{% static 'img/spreading-1-2.png' %}" class="img-responsive"></center>
+        </div>
+        <div>
+          <h4 class="headingh4 text-center"><b>Animal Contact</b></h4>
+          <p class="text-muted text-center">
+            Travel restrictions or screening air travellers for high temperature (fever) may help to prevent the SARS infection being spread.
+          </p>
+        </div>
+      </div>
   
-           
+      <div class="col-sm-4">
+        <div>
+          <center><img src="{% static 'img/spreading-1-3.png' %}" class="img-responsive"></center>
+        </div>
+        <div>
+          <h4 class="headingh4 text-center"><b>Personal Contact</b></h4>
+          <p class="text-muted text-center">
+            Travel restrictions or screening air travellers for high temperature (fever) may help to prevent the SARS infection being spread.
+          </p>
+        </div>
+      </div>
+    </div>
+  <br>
+    <div class="row">
+      <div class="col-sm-4">
+        <div>
+          <center><img src="{% static 'img/spreading-1-4.png' %}" class="img-responsive"></center>
+        </div>
+        <div>
+          <h4 class="headingh4 text-center"><b>Contaminated Objects</b></h4>
+          <p class="text-muted text-center">
+            Travel restrictions or screening air travellers for high temperature (fever) may help to prevent the SARS infection being spread.
+          </p>
+        </div>
+      </div>
+  
+      <div class="col-sm-4">
+        <div>
+          <center><img src="{% static 'img/spreading-1-5.png' %}" class="img-responsive"></center>
+        </div>
+        <div>
+          <h4 class="headingh4 text-center"><b>Droplets from an infected person</b></h4>
+          <p class="text-muted text-center">
+            Travel restrictions or screening air travellers for high temperature (fever) may help to prevent the SARS infection being spread.
+          </p>
+        </div>
+      </div>
+  
+      <div class="col-sm-4">
+        <div>
+          <center><img src="{% static 'img/spreading-1-6.png' %}" class="img-responsive"></center>
+        </div>
+        <div>
+          <h4 class="headingh4 text-center"><b>Touching infected surfaces</b></h4>
+          <p class="text-muted text-center">
+            Travel restrictions or screening air travellers for high temperature (fever) may help to prevent the SARS infection being spread.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
-  
-  <div style="margin-left: 10%;font-size: larger; margin-right: 10%;">
-    <h4>Preventive measures:</h4>
-                <p>
-                To prevent the spread of COVID-19:<br>
-                a)Clean your hands often. Use soap and water, or an alcohol-based hand rub.<br>
-                b)Maintain a safe distance from anyone who is coughing or sneezing.<br>
-                c)Wear a mask when physical distancing is not possible.<br>
-                d)Don’t touch your eyes, nose or mouth.<br>
-                e)Cover your nose and mouth with your bent elbow or a tissue when you cough or sneeze.<br>
-                f)Stay home if you feel unwell.<br>
-                g)If you have a fever, cough and difficulty breathing, seek medical attention.
-                </p>
-    </div><br>
-  
+  <br><br><br>
+</div>
+
+
+<div style="background-color: purple;">
+  <br><br><br><br>
+  <h1 class="headingh1 mrwhite text-center">Preventive Measures</h1>
+  <br><br>
+
+  <div class="row">
+    <div class="col-md-9 mx-auto">
+      <p class="headingh5 mrwhite">To prevent the spread of COVID-19:<br></p>
+      <p class="headingh5 mrwhite">1. Clean your hands often. Use soap and water, or an alcohol-based hand rub.</p>
+      <p class="headingh5 mrwhite">2. Maintain a safe distance from anyone who is coughing or sneezing.</p>
+      <p class="headingh5 mrwhite">3. Wear a mask when physical distancing is not possible.</p>
+      <p class="headingh5 mrwhite">4. Don’t touch your eyes, nose or mouth.</p>
+      <p class="headingh5 mrwhite">5. Cover your nose and mouth with your bent elbow or a tissue when you cough or sneeze.</p>
+      <p class="headingh5 mrwhite">6. Stay home if you feel unwell.</p>
+      <p class="headingh5 mrwhite">7. If you have a fever, cough and difficulty breathing, seek medical attention.</p>
+    </div>
+  </div>
+<br><br><br><br><br><br>
+</div>
+
+
+<div style="background-color: #eff2f9;">
     <br><br>
-      <h2 class="text-center">Contacts</h2>
+    <h1 class="headingh1 text-center" style="color: black;!important">Contacts</h1>
   <br><br>
   
   <div class="container">
     <div class="row">
-      <div class="col-sm-6">
-        <h4 class="text-center">Leave a Note here for a Doctor if you feel any symptoms</h4>
+      <div class="col-sm-8 mx-auto">
+        <h4 class="text-center headingh5">Leave a Note here for a Doctor if you feel any symptoms</h4>
         <form method="POST">
         {% csrf_token %}
         {{doctorform|crispy}}
@@ -161,99 +357,89 @@
         <button type="submit" class="btn btn-primary" value="Send">Send</button>
       </form><br><br>
       </div>
+    </div>
+    </div>
+        <br><br>
+</div>  
 
-        
-        
-          <div class="col-sm-6">
-            <h3 class="text-center">Leave a comment here</h3>
-            <form method="post">
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="CommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add a Comment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
           {% csrf_token %}
           {{form|crispy}}
           <input type="submit" value="Submit" class="btn btn-primary">
         </form>
-          </div>
-        
-        <br><br>
-      
-        <div class="row">
-          <div class="col-sm-6 mx-auto">
-              {% if request.user.is_authenticated %}
-              <div class="row">
-              <div class="col-sm-6 mx-auto">
-                {% for word in usercomments %}
-                <p><b>{{forloop.counter}}</b>."{{word.comment}}" - <i><span class="text-muted">by {{word.user.username}} at {{word.timestamp}}</span></i></p>
-                {% endfor %}
-              </div>
-            </div>
-            {% endif %}
-          </div>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br><br>
 
+        {% if request.user.is_authenticated %}
+        <h1 class="headingh1 text-center">Comments</h1>
+        <br><br>
+        <center><a href="" class="btn btn-primary"data-toggle="modal" data-target="#CommentModal"><i class="fa fa-plus"></i>&nbsp;Add a Comment</a></center>
+        <br><br>
+          <div class="row d-flex justify-content-center">
+              <div class="col-md-8">
+                  <div class="headings d-flex justify-content-between align-items-center mb-3">
+                      
+                      <!-- <div class="buttons"> <span class="badge bg-white d-flex flex-row align-items-center"> <span class="text-primary">Comments "ON"</span>
+                              <div class="form-check form-switch"> <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked> </div>
+                          </span> </div> -->
+                  </div>
+                  {% for word in usercomments %}
+                  <div class="card p-3">
+                      <div class="d-flex justify-content-between align-items-center">
+                          <div class="user d-flex flex-row align-items-center"> 
+                            <img src="{% static 'img/avatar.jpg' %}" width="30" class="user-img rounded-circle mr-2"> 
+                            <span>
+                              <small class="font-weight-bold text-primary headingp">{{word.user.username}}</small> 
+                              <!-- <small class="font-weight-bold">{{word.comment}}</small> -->
+                            </span> 
+                          </div> 
+                          <small class=" headingp">{{word.timestamp}}</small>
+                      </div>
+                      <div class="ml-5"><small class="font-weight-bold headingp">{{word.comment}}</small></div>
+                      <div class="action d-flex justify-content-between mt-2 align-items-center">
+                          <!-- <div class="reply px-4"><span class="dots"></span> <small class="text-muted headingp">Reply</small> <span class="dots"></span></div> -->
+                          <div class="icons align-items-center"> </div>
+                      </div>
+                  </div><br>
+                  {% endfor %}
+              </div>
+          </div>
+          {% endif %}
     </div>
   </div>
   <br>
+
   
-
-
-
-
-
-
-
-  <div class="container">
-  <!-- <canvas id="myChart" width="400" height="400"></canvas> -->
-  <p>
-     
-      <!-- {{our_json_data}} -->
-  </p>
-  
+<!-- Footer -->
+<footer class="text-center text-lg-start bg-light text-muted">
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    Copyright &copy; 2021. 
+    <a class="text-reset fw-bold" href="">Made by Kapyenga</a>
   </div>
-  <div style="background-color: yellow; height:50px; width:40%; ">
-    <h2 style="text-align: center; color:black; " id="comm" >Comments</h2>
-  </div><br>
-  
-  <div style="width: 100%; clear:both">
-  <footer class="bg-dark text-center text-white">
-  <!-- Grid container -->
-  <div class="container p-4">
-  <!-- Section: Social media -->
-  <section class="mb-4">
-  <!-- Facebook -->
-  <a class="btn btn-outline-light  btn-floating m-1" href="" role="button"
-    ><img src="https://img.icons8.com/material-rounded/24/000000/facebook-new.png"/></a>
-  
-  <!-- Twitter -->
-  <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-    <img src="https://img.icons8.com/material-rounded/24/000000/twitter.png"/>
-  </a>
-  
-  <!-- Google -->
-  <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-    >
-    <img src="https://img.icons8.com/ios-glyphs/30/000000/google-logo--v1.png"/>
-  </a>
-  
-  <!-- Instagram -->
-  <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-    >
-    <img src="https://img.icons8.com/ios-filled/30/000000/instagram-new.png"/>
-  </a>
-  
-  
-  
-  <!-- Linkedin -->
-  <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-    >
-    <img src="https://img.icons8.com/ios-glyphs/30/000000/linkedin.png"/></a>
-  
-  <div >
-  © 2021 Copyright:
-  <a class="text-white" href="usiu.ac.ke">USIU website</a>
-  </div>
-  </section>
-  </footer>
-  </div>
-</div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
 
 
 
@@ -379,7 +565,9 @@
 </script>
 
 
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
