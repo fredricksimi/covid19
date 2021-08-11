@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from commentsapp.forms import CommentForm, DoctorEmailForm
 from django.http import JsonResponse
+from django.contrib import messages
 from commentsapp.models import Comment, DoctorEmails
 from datetime import date, datetime
 import requests
@@ -67,6 +68,7 @@ def home_view(request):
         if form.is_valid():
             data = form.cleaned_data
             comment_created = Comment.objects.create(**data, user=request.user)
+            messages.success(request, 'Your Comment was added successfully!')
             return redirect('mainapp:homepage')
     else:
         form = CommentForm()
@@ -76,6 +78,7 @@ def home_view(request):
         if doctorform.is_valid():
             data = doctorform.cleaned_data
             comment_created = DoctorEmails.objects.create(**data, sender=request.user)
+            messages.success(request, 'Your Note was sent Successfully!')
             return redirect('mainapp:homepage')
     else:
         doctorform = DoctorEmailForm()
@@ -100,7 +103,7 @@ def home_view(request):
     return render(request, 'mainapp/index.html', context)
 
 def view_emails(request):
-    emails = DoctorEmails.objects.all()
+    emails = DoctorEmails.objects.all().order_by('-timestamp')
     context = {'emails':emails}
     return render(request, 'mainapp/emails.html', context)
 
@@ -120,7 +123,7 @@ def seven_days(request):
 def history_view(request):
     our_list = []
     converted_list = []
-    our_file = '/home/freddy/covid19/final.json'
+    our_file = '/home/freddy/covid19/final2.json'
     with open(our_file) as obj:
         data = json.load(obj)
         for entry in data:
@@ -132,20 +135,4 @@ def history_view(request):
                 "day":entry['day'],
             }
             converted_list.append(new_dict)
-
-        # for line in obj:
-            # newline = json.loads(line)
-            # our_list.append(newline)
-        # for ol in our_list:
-            # if ol["new_cases"] != None:
-            # print(ol)
-            # newentry = {
-            #     "new_cases": ol["new_cases"],
-            #     "day": ol["day"]
-            # }
-
-            # converted_list.append(json.loads(newentry))
-    # for k,v in our_list[0].items():
-    #     print(k,v)
-    # print(converted_list[0])
     return JsonResponse(converted_list, safe=False)
