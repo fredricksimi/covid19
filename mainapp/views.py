@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from commentsapp.forms import CommentForm, DoctorEmailForm
 from django.http import JsonResponse
 from django.contrib import messages
@@ -7,19 +6,8 @@ from commentsapp.models import Comment, DoctorEmails
 from datetime import date, datetime
 import requests
 import json
-import ast
-from datetime import date, timedelta
+from datetime import date
 
-# sdate = date(2020, 3, 22)   # start date
-# edate = date.today() - timedelta(1) # end date
-# delta = edate - sdate       # as timedelta
-
-# for i in range(delta.days + 1):
-#     day = sdate + timedelta(days=i)
-#     print(day)
-
-
-# @login_required
 def home_view(request):
     user_comments = Comment.objects.all().order_by('-timestamp')
     url = "https://covid-193.p.rapidapi.com/statistics?country=kenya"
@@ -31,7 +19,6 @@ def home_view(request):
     querystring = {"country": "kenya"}
     response = requests.request("GET", url, headers=headers, params=querystring).text
     our_json_data = json.loads(response)
-    
     
     country = our_json_data['response'][0]['country']
     population = our_json_data['response'][0]['population']
@@ -48,19 +35,6 @@ def home_view(request):
     time = our_json_data['response'][0]['time']
     datetime_object = datetime.fromisoformat(time)
     new_datetime_object = datetime_object.strftime("%d-%b-%Y (%H:%M:%S.%f)")
-
-    aDict = {
-        "country":country, "population":population,
-        "new_cases":new_cases, "active_cases":active_cases,
-        "critical":critical, "recovered":recovered,
-        "new_deaths":new_deaths, "total_deaths":total_deaths,
-        "tests":tests, "new_day_object":new_day_object, "time":time,
-        "new_datetime_object":new_datetime_object
-        }
-    ourjson = json.dumps(aDict)
-    ourjsonfile = open("ourdata.json", "w")
-    ourjsonfile.write(ourjson)
-    ourjsonfile.close()
 
     form = CommentForm(request.POST or None)
     if request.method == 'POST':
@@ -97,7 +71,6 @@ def home_view(request):
         "time":new_datetime_object,
         "form":form,
         "doctorform":doctorform,
-        "aDict":aDict,
         "usercomments":user_comments,
     }
     return render(request, 'mainapp/index.html', context)
@@ -123,11 +96,10 @@ def seven_days(request):
 def history_view(request):
     our_list = []
     converted_list = []
-    our_file = '/home/freddy/covid19/final2.json'
+    our_file = '/home/freddy/covid19/final.json'
     with open(our_file) as obj:
         data = json.load(obj)
         for entry in data:
-            # print(entry['new_cases'])
             new_dict = {
                 "total_cases":entry['total_cases'],
                 "total_deaths": entry['total_deaths'],
